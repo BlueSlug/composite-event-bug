@@ -19,7 +19,7 @@ https://raw.githubusercontent.com/BlueSlug/composite-event-bug/master/LICENSE.tx
             "onSingleEventA": null,
             "onAllEvents": {
                 events: {
-                    "onInitialEvent": "{that}.events.onSingleEventA"
+                    "onInitialEvent": "{that}.subcomponentA.events.onSubEvent"
                 }
             }
         },
@@ -34,6 +34,11 @@ https://raw.githubusercontent.com/BlueSlug/composite-event-bug/master/LICENSE.tx
                 "method": "log",
                 "args": ["All events fired"]
             }
+        },
+        components: {
+            subcomponentA: {
+                type: "sjrk.storyTelling.compositeEventSubcomponent"
+            }
         }
     });
 
@@ -46,7 +51,7 @@ https://raw.githubusercontent.com/BlueSlug/composite-event-bug/master/LICENSE.tx
             "onSingleEventB": null,
             "onAllEvents": {
                 events: {
-                    "onSubsequentEvent": "{that}.events.onSingleEventB"
+                    "onSubsequentEvent": "{that}.subcomponentB.events.onSubEvent"
                 }
             }
         },
@@ -57,10 +62,29 @@ https://raw.githubusercontent.com/BlueSlug/composite-event-bug/master/LICENSE.tx
                 "args": ["B fired"]
             }
         },
+        components: {
+            subcomponentB: {
+                type: "sjrk.storyTelling.compositeEventSubcomponent"
+            }
+        },
         invokers: {
             fireAllEvents: {
                 funcName: "sjrk.storyTelling.fireBothEvents",
-                args: ["{that}.events.onSingleEventA", "{that}.events.onSingleEventB"]
+                args: ["{that}.subcomponentA.events.onSubEvent", "{that}.subcomponentB.events.onSubEvent"]
+            }
+        }
+    });
+
+    fluid.defaults("sjrk.storyTelling.compositeEventSubcomponent", {
+        gradeNames: ["fluid.component"],
+        events: {
+            "onSubEvent": null
+        },
+        listeners: {
+            "onSubEvent.log": {
+                "this": "console",
+                "method": "log",
+                "args": ["Subevent fired"]
             }
         }
     });
