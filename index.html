@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>Composite Event Bug</title>
+
+        <script src="node_modules/infusion/dist/infusion-all.js"></script>
+        <script src="src/js/compositeEventComponent.js"></script>
+    </head>
+    <body>
+        <h1>Composite Event Bug</h1>
+
+        <div class="srjkc-storyTelling">
+            <button class="sjrkc-storyTelling-testButton" type="button">Fire events</button>
+        </div>
+
+        <script>
+            var storyTelling = sjrk.storyTelling.compositeEventComponentWithExtension(".srjkc-storyTelling", {});
+            storyTelling.fireAllEvents();
+            storyTelling.fireAllEvents();
+        </script>
+    </body>
+</html>
